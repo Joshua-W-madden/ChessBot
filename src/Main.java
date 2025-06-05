@@ -4,23 +4,19 @@ import java.awt.*;
 public class Main {
     public static void main(String[] args) {
 
-        JFrame windowFrame = new JFrame();
-        windowFrame.setTitle("Chess");
+        JFrame windowFrame = new JFrame("Chess");
         windowFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         windowFrame.setResizable(false);
+        windowFrame.setLocationRelativeTo(null); //opens the window in the center of the creen
+        windowFrame.setVisible(true);//lets you see the window
 
         ImageIcon image = new ImageIcon("icon.jpg");
         windowFrame.setIconImage(image.getImage());
 
-        GameWindow GameWindow = new GameWindow();
-        windowFrame.add(GameWindow);
+        GameWindow gw = new GameWindow();
+        windowFrame.add(gw);
+        windowFrame.pack(); //the window will adjust to the size of the game window
 
-        windowFrame.pack();
-
-        windowFrame.setLocationRelativeTo(null);
-        windowFrame.setVisible(true);
-
-        GameWindow.launchGame();
-
+        gw.launchGame();
     }
 }
