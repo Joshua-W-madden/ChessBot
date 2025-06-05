@@ -6,7 +6,7 @@ public class Main {
         JFrame windowFrame = new JFrame("Chess");
         windowFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         windowFrame.setResizable(false);
-        windowFrame.setLocationRelativeTo(null); //opens the window in the center of the creen
+        windowFrame.setLocationRelativeTo(null); //opens the window in the center of the screen
         windowFrame.setVisible(true);//lets you see the window
 
         ImageIcon image = new ImageIcon("icon.jpg");
