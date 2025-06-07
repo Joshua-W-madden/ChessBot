@@ -10,13 +10,11 @@ public class GameWindow extends JPanel implements Runnable{
     MouseHandler MouseH = new MouseHandler();
     Thread gameThread; //threads track how many times the program is refreshing/ running or looping NEEDS THE RUNNABLE implementation tho
 
-    //set default position
-    int x = 100 ,y = 100;
-    int speed = 4;
+    Board board = new Board();
 
     GameWindow() {
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
-        setBackground(new Color(189,210,228));
+        setBackground(new Color(0, 0, 0));
         this.addMouseListener(MouseH);
         this.setFocusable(true);
     }
@@ -30,7 +28,7 @@ public class GameWindow extends JPanel implements Runnable{
     public void run() {
 
         double drawInterval = 1000000000/FPS; //the rate of each frame 0.16... seconds
-        double nextDrawTime = System.nanoTime()+drawInterval; //when next frame should occure
+        double nextDrawTime = System.nanoTime()+drawInterval; //when next frame should occur
         while(gameThread != null){
 
             // UPDATE: number of pieces and positions
@@ -42,7 +40,7 @@ public class GameWindow extends JPanel implements Runnable{
             try {
                 double remainingTime = nextDrawTime - System.nanoTime();
                 remainingTime = remainingTime/ 1000000; //converts nano to millisecond
-                if (remainingTime < 0) { //if the program took too long dont sleep
+                if (remainingTime < 0) { //if the program took too long don't sleep
                     remainingTime = 0;
                 }
 
@@ -58,18 +56,14 @@ public class GameWindow extends JPanel implements Runnable{
     }
 
     private void update(){ //updates data
-        if(MouseH.clicked){
-            x += speed;
-            y += speed;
-        }
+        //*if(MouseH.clicked){}
+
     }
     public void paintComponent(Graphics g){ //the draws everything(from background to chess pieces)
         super.paintComponent(g);
-
         Graphics2D g2 = (Graphics2D) g;
+        board.draw(g2);
 
-        g2.setColor(Color.white);
-        g2.fillRect(x,y,48,48);
-        g2.dispose();
     }
+
 }
