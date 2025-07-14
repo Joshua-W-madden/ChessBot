@@ -1,18 +1,18 @@
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 
-public class MouseHandler implements MouseListener {
-    public boolean clicked;
-
-    @Override
-    public void mouseClicked(MouseEvent e) {
-    }
+public class MouseHandler extends MouseAdapter {
+    int x;
+    int y;
+    boolean pressed;
 
     @Override
     public void mousePressed(MouseEvent e) {
         int code = e.getButton();
         if (code == MouseEvent.BUTTON1){
-            clicked = true;
+            pressed = true;
         }
     }
 
@@ -20,15 +20,20 @@ public class MouseHandler implements MouseListener {
     public void mouseReleased(MouseEvent e) {
         int code = e.getButton();
         if (code == MouseEvent.BUTTON1){
-            clicked = false;
+            pressed = false;
         }
     }
 
-    @Override
-    public void mouseEntered(MouseEvent e) {
-    }
 
     @Override
-    public void mouseExited(MouseEvent e) {
+    public void mouseDragged(MouseEvent e) {
+        x = e.getX();
+        y = e.getY();
     }
+    @Override
+    public void mouseMoved(MouseEvent e) {
+        x = e.getX();
+        y = e.getY();
+    }
+
 }
