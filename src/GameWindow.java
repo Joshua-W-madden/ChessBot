@@ -22,7 +22,7 @@ public class GameWindow extends JPanel implements Runnable{
     //Pieces
     public static ArrayList<piece> pieces = new ArrayList<piece>();
     piece selectedPiece;
-    static int [][] spaces = new int [7][7];
+    static int [][] spaces = new int [Board.MAX_COLS][Board.MAX_ROWS];
 
     //Hints
     public static ArrayList<Hint> hints = new ArrayList<Hint>();
@@ -95,11 +95,7 @@ public class GameWindow extends JPanel implements Runnable{
         selectedPiece.y = MouseH.y;
 
         System.out.println(selectedPiece + " was Clicked");
-
-
         selectedPiece = null;
-
-
 
     }
 

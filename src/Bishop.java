@@ -11,21 +11,75 @@ public class Bishop extends piece{
     }
 
     @Override
-    public int[][] availMoves() {
-        int y = this.col;
-        int x = this.row;
-        int[][] takenSpots = GameWindow.spaces;
-        /*
-        for(int i = 0; i< 12; i++){
-            if()
+    public boolean[][] availMoves() {
+        upRight(col, row);
+        upLeft(col, row);
+        downLeft(col, row);
+        downRight(col, row);
+        return moves;
+    }
+    private void upRight(int col, int row){
+        this. col = col;
+        this.row = row;
+
+        if(col + 1 < 8 && row + 1 < 8) {
+            if (GameWindow.spaces[col][row] == color) {
+                moves[col][row] = false;
+            } else if (GameWindow.spaces[col][row] == 0) {
+                moves[col][row] = true;
+                upRight(col + 1, row + 1);
+            } else {
+                moves[col][row] = true;
+            }
         }
-
-         */
-        return pos;
     }
 
-    private int[][] take(int [][] arr){
-        int [][] pos = arr;
+    private void upLeft(int col, int row){
+        this. col = col;
+        this.row = row;
 
+        if(col -1  >= 0 && row + 1 < 8) {
+            if (GameWindow.spaces[col][row] == color) {
+                moves[col][row] = false;
+            } else if (GameWindow.spaces[col][row] == 0) {
+                moves[col][row] = true;
+                upLeft(col - 1, row + 1);
+            } else {
+                moves[col][row] = true;
+            }
+        }
     }
+
+    private void downLeft(int col, int row){
+        this. col = col;
+        this.row = row;
+
+        if(col -1  >= 0 && row - 1 >= 0) {
+            if (GameWindow.spaces[col][row] == color) {
+                moves[col][row] = false;
+            } else if (GameWindow.spaces[col][row] == 0) {
+                moves[col][row] = true;
+                upLeft(col - 1, row - 1);
+            } else {
+                moves[col][row] = true;
+            }
+        }
+    }
+
+    private void downRight(int col, int row){
+        this. col = col;
+        this.row = row;
+
+        if(col + 1 < 8 && row - 1 < 8) {
+            if (GameWindow.spaces[col][row] == color) {
+                moves[col][row] = false;
+            } else if (GameWindow.spaces[col][row] == 0) {
+                moves[col][row] = true;
+                upRight(col + 1, row - 1);
+            } else {
+                moves[col][row] = true;
+            }
+        }
+    }
+
 }

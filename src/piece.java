@@ -3,6 +3,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 
 @SuppressWarnings("CallToPrintStackTrace")
 public abstract class piece {
@@ -21,6 +22,7 @@ public abstract class piece {
     public int x, y;
     public int col, row, preCol, preRow;
     public int color;
+    public boolean[][] moves = new boolean[Board.MAX_COLS][Board.MAX_ROWS];
 
 
     public piece(int color, int col, int row) {
@@ -56,5 +58,5 @@ public abstract class piece {
         g2.drawImage(image, x, y, Board.SQUARE_SIZE, Board.SQUARE_SIZE, null);
     }
 
-    public abstract int[][] availMoves();
+    public abstract boolean[][] availMoves();
 }
