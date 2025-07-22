@@ -1,6 +1,5 @@
 public class Rook extends piece{
 
-
     public Rook(int color, int col, int row) {
         super(color, col, row);
         if(color == GameWindow.WHITE){
@@ -14,44 +13,52 @@ public class Rook extends piece{
 
     @Override
     public boolean[][] availMoves() {
-        moveUp(col, row);
-        moveDown(col, row);
-        moveLeft(col, row);
-        moveRight(col, row);
+        moveUp();
+        moveDown();
+        moveLeft();
+        moveRight();
         return moves;
     }
-    private void moveUp(int col, int row){
-        this.col = col;
-        this.row = row - 1;
+    private void moveUp(){
+        if(color == GameWindow.WHITE){
+            moveDown();
+        }
+        else {
+            this.col = col;
+            this.row = row - 1;
 
-        if(row >= 0){
-            if(GameWindow.spaces[col][row] == 0){
-                moves[col][row] = true;
-                moveUp(col, row);
+            if (row >= 0) {
+                if (GameWindow.spaces[col][row] == 0) {
+                    moves[col][row] = true;
+                    moveUp();
+                } else moves[col][row] = GameWindow.spaces[col][row] != this.color;
             }
-            else moves[col][row] = GameWindow.spaces[col][row] != this.color;
         }
     }
-    private void moveDown(int col, int row){
-        this.col = col;
-        this.row = row + 1;
+    private void moveDown(){
+        if(color == GameWindow.WHITE){
+            moveUp();
+        }
+        else {
+            int Currentcol = col;
+            int currentrow = row + 1;
 
-        if(row <= 7){
-            if(GameWindow.spaces[col][row] == 0){
-                moves[col][row] = true;
-                moveDown(col, row);
+            if (row <= 7) {
+                if (GameWindow.spaces[col][row] == GameWindow.EMPTY) {
+                    moves[col][row] = true;
+                    moveDown();
+                } else moves[col][row] = GameWindow.spaces[col][row] != color;
             }
-            else moves[col][row] = GameWindow.spaces[col][row] != color;
         }
     }
-    private void moveLeft(int col, int row){
+    private void moveLeft(){
         this.col = col - 1;
         this.row = row;
 
         if(col >= 0){
-            if(GameWindow.spaces[col][row] == 0){
+            if(GameWindow.spaces[col][row] == GameWindow.EMPTY){
                 moves[col][row] = true;
-                moveLeft(col, row);
+                moveLeft();
             }
             else moves[col][row] = GameWindow.spaces[col][row] != color;
             /*
@@ -66,14 +73,14 @@ public class Rook extends piece{
              */
         }
     }
-    private void moveRight(int col, int row){
-        this.col = col + 1;
-        this.row = row;
+    private void moveRight(){
+        int Currentcol = col + 1;
+        int currentrow = row;
 
         if(col <= 7) {
-            if (GameWindow.spaces[col][row] == 0) {
+            if (GameWindow.spaces[col][row] == GameWindow.EMPTY) {
                 moves[col][row] = true;
-                moveRight(col, row);
+                moveRight();
             } else moves[col][row] = GameWindow.spaces[col][row] != color;
         }
     }

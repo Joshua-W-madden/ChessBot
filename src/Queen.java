@@ -8,4 +8,9 @@ public class Queen extends piece{
             image = getImage("res/b_queen_1x.png");
         }
     }
+
+    @Override
+    public boolean[][] availMoves() {
+        return new boolean[0][];
+    }
 }

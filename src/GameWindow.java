@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 @SuppressWarnings({"ReassignedVariable", "BusyWait"})
 public class GameWindow extends JPanel implements Runnable{
@@ -12,19 +13,24 @@ public class GameWindow extends JPanel implements Runnable{
     Thread gameThread; //threads track how many times the program is refreshing/ running or looping NEEDS THE RUNNABLE implementation tho
 
     Board board = new Board();
-    Hint hint = new Hint();
 
     public static final int EMPTY = 0;
     public static final int WHITE = 1;
     public static final int BLACK = 2;
-    public int currentColor = WHITE;
+    public int currentColor = BLACK;
 
     //Pieces
     public static ArrayList<piece> pieces = new ArrayList<piece>();
     piece selectedPiece;
     static int [][] spaces = new int [Board.MAX_COLS][Board.MAX_ROWS];
+    static{
+        for(int[] space : spaces){
+            Arrays.fill(space, EMPTY);
+        }
+    }
 
     //Hints
+    public Hint hint = new Hint(6,2);
     public static ArrayList<Hint> hints = new ArrayList<Hint>();
 
     GameWindow() {
@@ -74,29 +80,31 @@ public class GameWindow extends JPanel implements Runnable{
     }
 
     private void update(){ //updates data
-         if(MouseH.pressed){
-            if(selectedPiece == null){
-
-                for(piece p : pieces){
-                    if(p.col == MouseH.x/Board.SQUARE_SIZE && p.row == MouseH.y/Board.SQUARE_SIZE ){
-                        selectedPiece = p;
-                    }
-                }
-            }
-            else{
-                legalMoves();
-            }
+         if(MouseH.clicked){
+             for (piece p : pieces) {
+                 pieceChceker(p);
+                 MouseH.clicked = false;
+             }
          }
 
     }
 
-    private void legalMoves(){
-        selectedPiece.x = MouseH.x;
-        selectedPiece.y = MouseH.y;
-
-        System.out.println(selectedPiece + " was Clicked");
-        selectedPiece = null;
-
+    private void pieceChceker(piece p){
+        if (p.col == MouseH.x / Board.SQUARE_SIZE && p.row == MouseH.y / Board.SQUARE_SIZE) {
+            if (p.color == currentColor) {
+                selectedPiece = p;
+                boolean[][] moves = selectedPiece.availMoves();
+                System.out.println("Position: " + MouseH.x / Board.SQUARE_SIZE + ", " + MouseH.y / Board.SQUARE_SIZE);
+                System.out.println(selectedPiece + " was Clicked");
+                for(int i = 0; i < Board.MAX_COLS; i++){
+                    for(int j = 0; j < Board.MAX_ROWS; j++){
+                        if(moves[i][j]){
+                            hints.add(new Hint(j, i));
+                        }
+                    }
+                }
+            }
+        }
     }
 
 
@@ -145,7 +153,6 @@ public class GameWindow extends JPanel implements Runnable{
         }
     }
 
-
     public void paintComponent(Graphics g){ //the draws everything(from background to chess pieces)
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
@@ -154,9 +161,9 @@ public class GameWindow extends JPanel implements Runnable{
         for (piece p: pieces){
             p.draw(g2);
         }
-
-        hint.draw(g2);
-
+        for (Hint h : hints){
+            h.draw(g2);
+        }
     }
 
 }

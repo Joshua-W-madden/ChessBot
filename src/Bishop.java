@@ -73,7 +73,7 @@ public class Bishop extends piece{
         if(col + 1 < 8 && row - 1 < 8) {
             if (GameWindow.spaces[col][row] == color) {
                 moves[col][row] = false;
-            } else if (GameWindow.spaces[col][row] == 0) {
+            } else if (GameWindow.spaces[col][row] == GameWindow.EMPTY) {
                 moves[col][row] = true;
                 upRight(col + 1, row - 1);
             } else {

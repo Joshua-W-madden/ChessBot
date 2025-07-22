@@ -8,4 +8,9 @@ public class Knight extends piece{
             image = getImage("res/b_knight_1x.png");
         }
     }
+
+    @Override
+    public boolean[][] availMoves() {
+        return new boolean[0][];
+    }
 }

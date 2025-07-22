@@ -7,6 +7,7 @@ public class Board {
     public static final int SQUARE_SIZE = 100;
     public static final int HALF_SQUARE_SIZE = SQUARE_SIZE/2;
 
+
     public void draw(Graphics2D g2){
         boolean isDark = false;
 
