@@ -20,7 +20,7 @@ public class GameWindow extends JPanel implements Runnable{
     public int currentColor = BLACK;
 
     //Pieces
-    public static ArrayList<piece> pieces = new ArrayList<piece>();
+    public static ArrayList<piece> pieces = new ArrayList<>();
     piece selectedPiece;
     static int [][] spaces = new int [Board.MAX_COLS][Board.MAX_ROWS];
     static{
@@ -30,8 +30,7 @@ public class GameWindow extends JPanel implements Runnable{
     }
 
     //Hints
-    public Hint hint = new Hint(6,2);
-    public static ArrayList<Hint> hints = new ArrayList<Hint>();
+    public static ArrayList<Hint> hints = new ArrayList<>();
 
     GameWindow() {
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
@@ -82,27 +81,21 @@ public class GameWindow extends JPanel implements Runnable{
     private void update(){ //updates data
          if(MouseH.clicked){
              for (piece p : pieces) {
-                 pieceChceker(p);
+                 pieceChecker(p);
                  MouseH.clicked = false;
              }
          }
 
     }
 
-    private void pieceChceker(piece p){
+    private void pieceChecker(piece p){
         if (p.col == MouseH.x / Board.SQUARE_SIZE && p.row == MouseH.y / Board.SQUARE_SIZE) {
             if (p.color == currentColor) {
                 selectedPiece = p;
-                boolean[][] moves = selectedPiece.availMoves();
+                hints.clear();
+                selectedPiece.availMoves();
                 System.out.println("Position: " + MouseH.x / Board.SQUARE_SIZE + ", " + MouseH.y / Board.SQUARE_SIZE);
                 System.out.println(selectedPiece + " was Clicked");
-                for(int i = 0; i < Board.MAX_COLS; i++){
-                    for(int j = 0; j < Board.MAX_ROWS; j++){
-                        if(moves[i][j]){
-                            hints.add(new Hint(j, i));
-                        }
-                    }
-                }
             }
         }
     }

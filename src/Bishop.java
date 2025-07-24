@@ -11,73 +11,65 @@ public class Bishop extends piece{
     }
 
     @Override
-    public boolean[][] availMoves() {
+    public void availMoves() {
         upRight(col, row);
         upLeft(col, row);
         downLeft(col, row);
         downRight(col, row);
-        return moves;
     }
     private void upRight(int col, int row){
-        this. col = col;
-        this.row = row;
+        int curr_col = col + 1;
+        int curr_row = row + 1;
 
-        if(col + 1 < 8 && row + 1 < 8) {
-            if (GameWindow.spaces[col][row] == color) {
-                moves[col][row] = false;
-            } else if (GameWindow.spaces[col][row] == 0) {
-                moves[col][row] = true;
-                upRight(col + 1, row + 1);
-            } else {
-                moves[col][row] = true;
+        if(curr_col < 8 && curr_row < 8) {
+            if (GameWindow.spaces[curr_col][curr_row] == 0) {
+                GameWindow.hints.add(new Hint(curr_col,curr_row));
+                upRight(curr_col, curr_row);
+            }
+            else if (GameWindow.spaces[curr_col][curr_row] != color){
+                GameWindow.hints.add(new Hint(curr_col,curr_row));
             }
         }
     }
 
     private void upLeft(int col, int row){
-        this. col = col;
-        this.row = row;
+        int curr_col = col - 1;
+        int curr_row = row + 1;
 
-        if(col -1  >= 0 && row + 1 < 8) {
-            if (GameWindow.spaces[col][row] == color) {
-                moves[col][row] = false;
-            } else if (GameWindow.spaces[col][row] == 0) {
-                moves[col][row] = true;
-                upLeft(col - 1, row + 1);
-            } else {
-                moves[col][row] = true;
+        if(curr_col >= 0 && curr_row < 8) {
+            if (GameWindow.spaces[curr_col][curr_row] == 0) {
+                GameWindow.hints.add(new Hint(curr_col,curr_row));
+                upLeft(curr_col, curr_row);
+            } else if (GameWindow.spaces[curr_col][curr_row] != color){
+                GameWindow.hints.add(new Hint(curr_col,curr_row));
             }
         }
     }
 
     private void downLeft(int col, int row){
-        this. col = col;
-        this.row = row;
+        int curr_col = col - 1;
+        int curr_row = row - 1;
 
-        if(col -1  >= 0 && row - 1 >= 0) {
-            if (GameWindow.spaces[col][row] == color) {
-                moves[col][row] = false;
-            } else if (GameWindow.spaces[col][row] == 0) {
-                moves[col][row] = true;
-                upLeft(col - 1, row - 1);
-            } else {
-                moves[col][row] = true;
+        if(curr_col >= 0 && curr_row >= 0) {
+            if (GameWindow.spaces[curr_col][curr_row] == 0) {
+                GameWindow.hints.add(new Hint(curr_col,curr_row));
+                downLeft(curr_col, curr_row);
+            } else if (GameWindow.spaces[curr_col][curr_row] != color){
+                GameWindow.hints.add(new Hint(curr_col,curr_row));
             }
         }
     }
 
     private void downRight(int col, int row){
-        this. col = col;
-        this.row = row;
+        int curr_col = col + 1;
+        int curr_row = row - 1;
 
-        if(col + 1 < 8 && row - 1 < 8) {
-            if (GameWindow.spaces[col][row] == color) {
-                moves[col][row] = false;
-            } else if (GameWindow.spaces[col][row] == GameWindow.EMPTY) {
-                moves[col][row] = true;
-                upRight(col + 1, row - 1);
-            } else {
-                moves[col][row] = true;
+        if(curr_col < 8 && curr_row >= 0) {
+            if (GameWindow.spaces[curr_col][curr_row] == 0) {
+                GameWindow.hints.add(new Hint(curr_col,curr_row));
+                downRight(curr_col, curr_row);
+            } else if (GameWindow.spaces[curr_col][curr_row] != color){
+                GameWindow.hints.add(new Hint(curr_col,curr_row));
             }
         }
     }

@@ -13,13 +13,13 @@ public class Hint{
     }
 
     private int getX(){
-        int x = Board.SQUARE_SIZE* row;
+        int x = Board.SQUARE_SIZE* col;
         x += Board.HALF_SQUARE_SIZE/2;
         return x;
     }
 
     private int getY(){
-        int y = Board.SQUARE_SIZE* col;
+        int y = Board.SQUARE_SIZE* row;
         y += Board.HALF_SQUARE_SIZE/2;
         return y;
     }

@@ -10,7 +10,6 @@ public class Knight extends piece{
     }
 
     @Override
-    public boolean[][] availMoves() {
-        return new boolean[0][];
+    public void availMoves() {
     }
 }

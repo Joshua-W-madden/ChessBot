@@ -12,76 +12,63 @@ public class Rook extends piece{
     }
 
     @Override
-    public boolean[][] availMoves() {
-        moveUp();
-        moveDown();
-        moveLeft();
-        moveRight();
-        return moves;
+    public void availMoves() {
+        moveUp(row);
+        moveDown(row);
+        moveLeft(col);
+        moveRight(col);
     }
-    private void moveUp(){
-        if(color == GameWindow.WHITE){
-            moveDown();
-        }
-        else {
-            this.col = col;
-            this.row = row - 1;
+    private void moveUp(int row){
+        int curr_row = row - 1;
 
-            if (row >= 0) {
-                if (GameWindow.spaces[col][row] == 0) {
-                    moves[col][row] = true;
-                    moveUp();
-                } else moves[col][row] = GameWindow.spaces[col][row] != this.color;
+        if (curr_row >= 0) {
+            if (GameWindow.spaces[col][curr_row] == 0) {
+                GameWindow.hints.add(new Hint(col, curr_row));
+                moveUp(curr_row);
+            }
+            else if(GameWindow.spaces[col][curr_row] != color){
+                GameWindow.hints.add(new Hint(col, curr_row));
             }
         }
     }
-    private void moveDown(){
-        if(color == GameWindow.WHITE){
-            moveUp();
-        }
-        else {
-            int Currentcol = col;
-            int currentrow = row + 1;
 
-            if (row <= 7) {
-                if (GameWindow.spaces[col][row] == GameWindow.EMPTY) {
-                    moves[col][row] = true;
-                    moveDown();
-                } else moves[col][row] = GameWindow.spaces[col][row] != color;
+    private void moveDown(int row){
+        int curr_row = row + 1;
+        if (curr_row <= 7) {
+            if (GameWindow.spaces[col][curr_row] == GameWindow.EMPTY) {
+                moves[col][curr_row] = true;
+                GameWindow.hints.add(new Hint(col, curr_row));
+                moveDown(curr_row);
+            }
+            else if(GameWindow.spaces[col][curr_row] != color){
+                GameWindow.hints.add(new Hint(col, curr_row));
             }
         }
     }
-    private void moveLeft(){
-        this.col = col - 1;
-        this.row = row;
 
-        if(col >= 0){
-            if(GameWindow.spaces[col][row] == GameWindow.EMPTY){
-                moves[col][row] = true;
-                moveLeft();
+    private void moveLeft(int col){
+        int curr_col = col - 1;
+
+        if(curr_col >= 0){
+            if(GameWindow.spaces[curr_col][row] == GameWindow.EMPTY){
+                GameWindow.hints.add(new Hint(curr_col, row));
+                moveLeft(curr_col);
             }
-            else moves[col][row] = GameWindow.spaces[col][row] != color;
-            /*
-            replace with:
-            else if(GameWindow.spaces[col][row] == this.color){
-                moves[col][row] = false;
+            else if(GameWindow.spaces[curr_col][row] != color){
+                GameWindow.hints.add(new Hint(curr_col, row));
             }
-            else{
-                moves[col][row] = true;
-            }
-            Since the GameWindow.spaces white and black = 1,2 and 0 means empty
-             */
         }
     }
-    private void moveRight(){
-        int Currentcol = col + 1;
-        int currentrow = row;
-
-        if(col <= 7) {
-            if (GameWindow.spaces[col][row] == GameWindow.EMPTY) {
-                moves[col][row] = true;
-                moveRight();
-            } else moves[col][row] = GameWindow.spaces[col][row] != color;
+    private void moveRight(int col){
+        int curr_col = col + 1;
+        if(curr_col <= 7) {
+            if (GameWindow.spaces[curr_col][row] == GameWindow.EMPTY) {
+                GameWindow.hints.add(new Hint(curr_col, row));
+                moveRight(curr_col);
+            }
+            else if(GameWindow.spaces[curr_col][row] != color){
+                GameWindow.hints.add(new Hint(curr_col, row));
+            }
         }
     }
 }

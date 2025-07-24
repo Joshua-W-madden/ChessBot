@@ -11,11 +11,11 @@ public class pawn extends piece{
         }
 
     }
-    public boolean[][] availMoves(){
+    public void availMoves(){
         moveUp();
         eat();
-        return moves;
     }
+
     private void moveUp(){
         if(color == GameWindow.WHITE){
             moveDown();
@@ -23,26 +23,26 @@ public class pawn extends piece{
         else {
             if (!hasMoved) {
                 if (GameWindow.spaces[col][row - 1] == GameWindow.EMPTY && GameWindow.spaces[col][row - 2] == GameWindow.EMPTY) {
-                    moves[col][row - 1] = true;
-                    moves[col][row - 2] = true;
+                    GameWindow.hints.add(new Hint(col ,row - 1));
+                    GameWindow.hints.add(new Hint(col ,row - 2));
                 }
             }
 
             if (GameWindow.spaces[col][row - 1] == GameWindow.EMPTY) {
-                moves[col][row - 1] = true;
+                GameWindow.hints.add(new Hint(col ,row - 1));
             }
         }
     }
     private void moveDown(){
-        if (!hasMoved) {
-            if (GameWindow.spaces[col][row + 1] == GameWindow.EMPTY && GameWindow.spaces[col][row + 2] == GameWindow.EMPTY) {
-                moves[col][row + 1] = true;
-                moves[col][row + 2] = true;
+        if(col != 7) {
+            if (!hasMoved) {
+                if (GameWindow.spaces[col][row + 1] == GameWindow.EMPTY && GameWindow.spaces[col][row + 2] == GameWindow.EMPTY) {
+                    GameWindow.hints.add(new Hint(col + 1, row));
+                    GameWindow.hints.add(new Hint(col + 2, row));
+                }
+            } else if (GameWindow.spaces[col][row + 1] == GameWindow.EMPTY) {
+                GameWindow.hints.add(new Hint(col, row + 1));
             }
-        }
-
-        if (GameWindow.spaces[col][row + 1] == GameWindow.EMPTY) {
-            moves[col][row + 1] = true;
         }
     }
     private void eat(){
@@ -50,24 +50,28 @@ public class pawn extends piece{
             eatDown();
         }
         else {
-            if((row != 0) || (col != 0)){
+            if((row != 0) && (col != 0)){
                 if ((GameWindow.spaces[col - 1][row - 1] != color) && (GameWindow.spaces[col - 1][row - 1] != GameWindow.EMPTY)) {
-                    moves[col - 1][row - 1] = true;
+                    GameWindow.hints.add(new Hint(col - 1,row - 1));
                 }
             }
-            if((row != 0) || (col != 7)) {
+            if((row != 0) && (col != 7)) {
                 if (GameWindow.spaces[col + 1][row - 1] != color && GameWindow.spaces[col + 1][row - 1] != GameWindow.EMPTY) {
-                    moves[col + 1][row - 1] = true;
+                    GameWindow.hints.add(new Hint(col + 1,row - 1));
                 }
             }
         }
     }
     private void eatDown(){
-        if(GameWindow.spaces[col+1][row +1] != color && GameWindow.spaces[col-1][row +1] != GameWindow.EMPTY){
-            moves[col +1][row +1] = true;
+        if((row != 7) && (col != 7)) {
+            if (GameWindow.spaces[col + 1][row + 1] != color && GameWindow.spaces[col + 1][row + 1] != GameWindow.EMPTY) {
+                GameWindow.hints.add(new Hint(col + 1,row + 1));
+            }
         }
-        if(GameWindow.spaces[col+ 1][row +1] != color && GameWindow.spaces[col+ 1][row +1] != GameWindow.EMPTY){
-            moves[col +1][row +1] = true;
+        if((row != 7) && (col != 0)) {
+            if (GameWindow.spaces[col - 1][row + 1] != color && GameWindow.spaces[col - 1][row + 1] != GameWindow.EMPTY) {
+                GameWindow.hints.add(new Hint(col - 1,row + 1));
+            }
         }
     }
 }
