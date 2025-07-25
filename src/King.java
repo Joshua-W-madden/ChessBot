@@ -11,6 +11,18 @@ public class King extends piece{
 
     @Override
     public void availMoves() {
-
+        move();
+    }
+    public void move(){
+        if(col > 0 && row > 0){
+            if(GameWindow.spaces[col-1][row] != color){
+                GameWindow.hints.add(new Hint(col -1, row -1));
+                GameWindow.hints.add(new Hint(col -1, row));
+                GameWindow.hints.add(new Hint(col -1, row +1));
+                GameWindow.hints.add(new Hint(col +1, row -1));
+                GameWindow.hints.add(new Hint(col +1, row));
+                GameWindow.hints.add(new Hint(col +1, row +1));
+            }
+        }
     }
 }
