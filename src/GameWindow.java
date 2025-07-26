@@ -123,7 +123,7 @@ public class GameWindow extends JPanel implements Runnable{
         pieces.add(new Knight(BLACK, 1, 7));
         pieces.add(new Bishop(BLACK, 2, 7));
         pieces.add(new Queen(BLACK, 3, 7));
-        pieces.add(new King(BLACK, 4, 4));
+        pieces.add(new King(BLACK, 4, 5));
         pieces.add(new Bishop(BLACK, 5, 7));
         pieces.add(new Knight(BLACK, 6, 7));
         pieces.add(new Rook(BLACK, 7, 7));
