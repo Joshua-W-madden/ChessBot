@@ -17,7 +17,7 @@ public class GameWindow extends JPanel implements Runnable{
     public static final int EMPTY = 0;
     public static final int WHITE = 1;
     public static final int BLACK = 2;
-    public int currentColor = BLACK;
+    public int currentColor = WHITE;
 
     //Pieces
     public static ArrayList<piece> pieces = new ArrayList<>();
@@ -79,15 +79,33 @@ public class GameWindow extends JPanel implements Runnable{
     }
 
     private void update(){ //updates data
-         if(MouseH.clicked){
-             for (piece p : pieces) {
-                 pieceChecker(p);
-                 MouseH.clicked = false;
-             }
-         }
+        if(hints.isEmpty()) {
+            if (MouseH.clicked) {
+                for (piece p : pieces) {
+                    pieceChecker(p);
+                }
+                MouseH.clicked = false;
+            }
+        }
+        else{
+            if (MouseH.clicked) {
+                for(Hint h: hints) {
+                    movePiece(h);
+                }
+                MouseH.clicked = false;
+                GameWindow.hints.clear();
+            }
+        }
 
     }
-
+    private void movePiece(Hint h){
+        if(h.col == MouseH.x / Board.SQUARE_SIZE && h.row == MouseH.y / Board.SQUARE_SIZE){
+            GameWindow.spaces[selectedPiece.col][selectedPiece.row] = GameWindow.EMPTY;
+            GameWindow.spaces[h.col][h.row] = selectedPiece.color;
+            selectedPiece.row = h.row;
+            selectedPiece.col = h.col;
+        }
+    }
     private void pieceChecker(piece p){
         if (p.col == MouseH.x / Board.SQUARE_SIZE && p.row == MouseH.y / Board.SQUARE_SIZE) {
             if (p.color == currentColor) {
@@ -123,7 +141,7 @@ public class GameWindow extends JPanel implements Runnable{
         pieces.add(new Knight(BLACK, 1, 7));
         pieces.add(new Bishop(BLACK, 2, 7));
         pieces.add(new Queen(BLACK, 3, 7));
-        pieces.add(new King(BLACK, 4, 5));
+        pieces.add(new King(BLACK, 4, 7));
         pieces.add(new Bishop(BLACK, 5, 7));
         pieces.add(new Knight(BLACK, 6, 7));
         pieces.add(new Rook(BLACK, 7, 7));

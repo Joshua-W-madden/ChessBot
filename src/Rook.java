@@ -36,7 +36,6 @@ public class Rook extends piece{
         int curr_row = row + 1;
         if (curr_row <= 7) {
             if (GameWindow.spaces[col][curr_row] == GameWindow.EMPTY) {
-                moves[col][curr_row] = true;
                 GameWindow.hints.add(new Hint(col, curr_row));
                 moveDown(curr_row);
             }

@@ -33,12 +33,12 @@ public class Knight extends piece{
 
     public void moveDown(){
         int curr_col = col + 2;
-        if(col < 6 && (row < 7)) {
+        if(curr_col <= 7 && (row +1 <= 7)) {
             if (GameWindow.spaces[curr_col][row + 1] != color){
                 GameWindow.hints.add(new Hint(curr_col, row + 1));
             }
         }
-        if(col < 6 && (row > 1)) {
+        if(curr_col <= 7 && (row -1 >= 0)) {
             if (GameWindow.spaces[curr_col][row - 1] != color){
                 GameWindow.hints.add(new Hint(curr_col, row - 1));
             }
@@ -46,7 +46,7 @@ public class Knight extends piece{
     }
     public void moveLeft(){
         int curr_row = row + 2;
-        if(col < 7 && (curr_row <= 7)) {
+        if(col + 1 <= 7 && (curr_row <= 7)) {
             if (GameWindow.spaces[col + 1][curr_row] != color){
                 GameWindow.hints.add(new Hint(col + 1, curr_row));
             }
@@ -59,12 +59,12 @@ public class Knight extends piece{
     }
     public void moveRight(){
         int curr_row = row - 2;
-        if(col < 7 && (curr_row >= 0)) {
+        if(col + 1 <= 7 && (curr_row >= 0)) {
             if (GameWindow.spaces[col + 1][curr_row] != color){
                 GameWindow.hints.add(new Hint(col + 1, curr_row));
             }
         }
-        if(col > 0 && (curr_row >= 0)) {
+        if(col - 1 >= 0 && (curr_row >= 0)) {
             if (GameWindow.spaces[col -1][curr_row] != color){
                 GameWindow.hints.add(new Hint(col - 1, curr_row));
             }

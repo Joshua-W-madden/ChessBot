@@ -34,11 +34,11 @@ public class pawn extends piece{
         }
     }
     private void moveDown(){
-        if(col != 7) {
+        if(row != 7) {
             if (!hasMoved) {
                 if (GameWindow.spaces[col][row + 1] == GameWindow.EMPTY && GameWindow.spaces[col][row + 2] == GameWindow.EMPTY) {
-                    GameWindow.hints.add(new Hint(col + 1, row));
-                    GameWindow.hints.add(new Hint(col + 2, row));
+                    GameWindow.hints.add(new Hint(col, row + 1));
+                    GameWindow.hints.add(new Hint(col, row + 2));
                 }
             } else if (GameWindow.spaces[col][row + 1] == GameWindow.EMPTY) {
                 GameWindow.hints.add(new Hint(col, row + 1));

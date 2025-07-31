@@ -19,19 +19,14 @@ public abstract class piece {
 
     public BufferedImage image;
     public int x, y;
-    public int col, row, preCol, preRow;
+    public int col, row;
     public int color;
-    public boolean[][] moves = new boolean[Board.MAX_COLS][Board.MAX_ROWS];
 
 
     public piece(int color, int col, int row) {
         this.color = color;
         this.col = col;
         this.row = row;
-        x = getX(col);
-        y = getY(row);
-        preCol = col;
-        preRow = row;
     }
 
     public int getX(int col) {
@@ -54,8 +49,9 @@ public abstract class piece {
     }
 
     public void draw(Graphics2D g2) {
-        g2.drawImage(image, x, y, Board.SQUARE_SIZE, Board.SQUARE_SIZE, null);
+        g2.drawImage(image, getX(col), getY(row), Board.SQUARE_SIZE, Board.SQUARE_SIZE, null);
     }
 
     public abstract void availMoves();
+
 }
