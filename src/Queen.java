@@ -11,5 +11,127 @@ public class Queen extends piece{
 
     @Override
     public void availMoves() {
+        upRight(col, row);
+        upLeft(col, row);
+        downLeft(col, row);
+        downRight(col, row);
+        moveUp(row);
+        moveDown(row);
+        moveLeft(col);
+        moveRight(col);
     }
+
+    @Override
+    public void hasMoved() {
+    }
+
+    private void moveUp(int row){
+        int curr_row = row - 1;
+
+        if (curr_row >= 0) {
+            if (GameWindow.spaces[col][curr_row] == 0) {
+                GameWindow.hints.add(new Hint(col, curr_row));
+                moveUp(curr_row);
+            }
+            else if(GameWindow.spaces[col][curr_row] != color){
+                GameWindow.hints.add(new Hint(col, curr_row));
+            }
+        }
+    }
+
+    private void moveDown(int row){
+        int curr_row = row + 1;
+        if (curr_row <= 7) {
+            if (GameWindow.spaces[col][curr_row] == GameWindow.EMPTY) {
+                GameWindow.hints.add(new Hint(col, curr_row));
+                moveDown(curr_row);
+            }
+            else if(GameWindow.spaces[col][curr_row] != color){
+                GameWindow.hints.add(new Hint(col, curr_row));
+            }
+        }
+    }
+
+    private void moveLeft(int col){
+        int curr_col = col - 1;
+
+        if(curr_col >= 0){
+            if(GameWindow.spaces[curr_col][row] == GameWindow.EMPTY){
+                GameWindow.hints.add(new Hint(curr_col, row));
+                moveLeft(curr_col);
+            }
+            else if(GameWindow.spaces[curr_col][row] != color){
+                GameWindow.hints.add(new Hint(curr_col, row));
+            }
+        }
+    }
+    private void moveRight(int col){
+        int curr_col = col + 1;
+        if(curr_col <= 7) {
+            if (GameWindow.spaces[curr_col][row] == GameWindow.EMPTY) {
+                GameWindow.hints.add(new Hint(curr_col, row));
+                moveRight(curr_col);
+            }
+            else if(GameWindow.spaces[curr_col][row] != color){
+                GameWindow.hints.add(new Hint(curr_col, row));
+            }
+        }
+    }
+
+    private void upRight(int col, int row){
+        int curr_col = col + 1;
+        int curr_row = row + 1;
+
+        if(curr_col < 8 && curr_row < 8) {
+            if (GameWindow.spaces[curr_col][curr_row] == 0) {
+                GameWindow.hints.add(new Hint(curr_col,curr_row));
+                upRight(curr_col, curr_row);
+            }
+            else if (GameWindow.spaces[curr_col][curr_row] != color){
+                GameWindow.hints.add(new Hint(curr_col,curr_row));
+            }
+        }
+    }
+    private void upLeft(int col, int row){
+        int curr_col = col - 1;
+        int curr_row = row + 1;
+
+        if(curr_col >= 0 && curr_row < 8) {
+            if (GameWindow.spaces[curr_col][curr_row] == 0) {
+                GameWindow.hints.add(new Hint(curr_col,curr_row));
+                upLeft(curr_col, curr_row);
+            } else if (GameWindow.spaces[curr_col][curr_row] != color){
+                GameWindow.hints.add(new Hint(curr_col,curr_row));
+            }
+        }
+    }
+
+    private void downLeft(int col, int row){
+        int curr_col = col - 1;
+        int curr_row = row - 1;
+
+        if(curr_col >= 0 && curr_row >= 0) {
+            if (GameWindow.spaces[curr_col][curr_row] == 0) {
+                GameWindow.hints.add(new Hint(curr_col,curr_row));
+                downLeft(curr_col, curr_row);
+            } else if (GameWindow.spaces[curr_col][curr_row] != color){
+                GameWindow.hints.add(new Hint(curr_col,curr_row));
+            }
+        }
+    }
+
+    private void downRight(int col, int row){
+        int curr_col = col + 1;
+        int curr_row = row - 1;
+
+        if(curr_col < 8 && curr_row >= 0) {
+            if (GameWindow.spaces[curr_col][curr_row] == 0) {
+                GameWindow.hints.add(new Hint(curr_col,curr_row));
+                downRight(curr_col, curr_row);
+            } else if (GameWindow.spaces[curr_col][curr_row] != color){
+                GameWindow.hints.add(new Hint(curr_col,curr_row));
+            }
+        }
+    }
+
 }

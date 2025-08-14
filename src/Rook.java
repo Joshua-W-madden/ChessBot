@@ -18,6 +18,11 @@ public class Rook extends piece{
         moveLeft(col);
         moveRight(col);
     }
+
+    @Override
+    public void hasMoved() {
+    }
+
     private void moveUp(int row){
         int curr_row = row - 1;
 

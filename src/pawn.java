@@ -9,6 +9,7 @@ public class pawn extends piece{
         else{
             image = getImage("res/b_pawn_1x.png");
         }
+        hasMoved = false;
 
     }
     public void availMoves(){
@@ -16,32 +17,35 @@ public class pawn extends piece{
         eat();
     }
 
+    @Override
+    public void hasMoved() {
+        hasMoved = true;
+    }
+
     private void moveUp(){
         if(color == GameWindow.WHITE){
             moveDown();
         }
         else {
-            if (!hasMoved) {
-                if (GameWindow.spaces[col][row - 1] == GameWindow.EMPTY && GameWindow.spaces[col][row - 2] == GameWindow.EMPTY) {
-                    GameWindow.hints.add(new Hint(col ,row - 1));
-                    GameWindow.hints.add(new Hint(col ,row - 2));
-                }
-            }
-
             if (GameWindow.spaces[col][row - 1] == GameWindow.EMPTY) {
                 GameWindow.hints.add(new Hint(col ,row - 1));
+            }
+            if (!hasMoved) {
+                if (GameWindow.spaces[col][row - 2] == GameWindow.EMPTY) {
+                    GameWindow.hints.add(new Hint(col ,row - 2));
+                }
             }
         }
     }
     private void moveDown(){
         if(row != 7) {
+            if (GameWindow.spaces[col][row + 1] == GameWindow.EMPTY) {
+                GameWindow.hints.add(new Hint(col, row + 1));
+            }
             if (!hasMoved) {
-                if (GameWindow.spaces[col][row + 1] == GameWindow.EMPTY && GameWindow.spaces[col][row + 2] == GameWindow.EMPTY) {
-                    GameWindow.hints.add(new Hint(col, row + 1));
+                if (GameWindow.spaces[col][row + 2] == GameWindow.EMPTY) {
                     GameWindow.hints.add(new Hint(col, row + 2));
                 }
-            } else if (GameWindow.spaces[col][row + 1] == GameWindow.EMPTY) {
-                GameWindow.hints.add(new Hint(col, row + 1));
             }
         }
     }

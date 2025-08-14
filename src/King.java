@@ -14,7 +14,12 @@ public class King extends piece {
         moveDown();
         moveSide();
     }
-    public void moveSide() {
+
+    @Override
+    public void hasMoved() {
+    }
+
+    private void moveSide() {
         if (col + 1 <= 7) {
             if (GameWindow.spaces[col + 1][row] != color) {
                 GameWindow.hints.add(new Hint(col + 1, row));
@@ -27,7 +32,7 @@ public class King extends piece {
         }
     }
 
-    public void moveUp() {
+    private void moveUp() {
         if (row + 1 <= 7) {
             if (GameWindow.spaces[col][row + 1] != color) {
                 GameWindow.hints.add(new Hint(col, row + 1));
@@ -46,7 +51,7 @@ public class King extends piece {
         }
     }
 
-    public void moveDown() {
+    private void moveDown() {
         if (row - 1 >= 0) {
             if (GameWindow.spaces[col][row - 1] != color) {
                 GameWindow.hints.add(new Hint(col, row - 1));

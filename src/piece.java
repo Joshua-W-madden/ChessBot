@@ -21,6 +21,7 @@ public abstract class piece {
     public int x, y;
     public int col, row;
     public int color;
+    public boolean hasMoved = false;
 
 
     public piece(int color, int col, int row) {
@@ -54,4 +55,7 @@ public abstract class piece {
 
     public abstract void availMoves();
 
+    public void hasMoved() {
+        hasMoved = true;
+    }
 }

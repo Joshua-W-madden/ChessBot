@@ -17,6 +17,11 @@ public class Bishop extends piece{
         downLeft(col, row);
         downRight(col, row);
     }
+
+    @Override
+    public void hasMoved() {
+    }
+
     private void upRight(int col, int row){
         int curr_col = col + 1;
         int curr_row = row + 1;

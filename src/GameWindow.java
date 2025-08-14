@@ -21,6 +21,7 @@ public class GameWindow extends JPanel implements Runnable{
 
     //Pieces
     public static ArrayList<piece> pieces = new ArrayList<>();
+    public static ArrayList<piece> eaten = new ArrayList<>();
     piece selectedPiece;
     static int [][] spaces = new int [Board.MAX_COLS][Board.MAX_ROWS];
     static{
@@ -93,17 +94,28 @@ public class GameWindow extends JPanel implements Runnable{
                     movePiece(h);
                 }
                 MouseH.clicked = false;
-                GameWindow.hints.clear();
+                hints.clear();
             }
         }
 
     }
     private void movePiece(Hint h){
         if(h.col == MouseH.x / Board.SQUARE_SIZE && h.row == MouseH.y / Board.SQUARE_SIZE){
-            GameWindow.spaces[selectedPiece.col][selectedPiece.row] = GameWindow.EMPTY;
-            GameWindow.spaces[h.col][h.row] = selectedPiece.color;
+            if(spaces[h.col][h.row] != EMPTY){
+                take(h);
+            }
+            spaces[selectedPiece.col][selectedPiece.row] = GameWindow.EMPTY;
+            spaces[h.col][h.row] = selectedPiece.color;
             selectedPiece.row = h.row;
             selectedPiece.col = h.col;
+            selectedPiece.hasMoved();
+
+            if(currentColor == BLACK){
+                currentColor = WHITE;
+            }
+            else{
+                currentColor = BLACK;
+            }
         }
     }
     private void pieceChecker(piece p){
@@ -114,6 +126,16 @@ public class GameWindow extends JPanel implements Runnable{
                 selectedPiece.availMoves();
                 System.out.println("Position: " + MouseH.x / Board.SQUARE_SIZE + ", " + MouseH.y / Board.SQUARE_SIZE);
                 System.out.println(selectedPiece + " was Clicked");
+            }
+        }
+    }
+    private void take(Hint h){
+        for(piece p : pieces){
+            if(p.col == h.col && p.row == h.row){
+                // allow for eaten piece to be displayed on side bar
+                eaten.add(p);
+                pieces.remove(p);
+                return;
             }
         }
     }

@@ -17,7 +17,11 @@ public class Knight extends piece{
         moveRight();
     }
 
-    public void moveUp(){
+    @Override
+    public void hasMoved() {
+    }
+
+    private void moveUp(){
         int curr_col = col - 2;
         if(curr_col >= 0 && (row < 7)) {
             if (GameWindow.spaces[curr_col][row + 1] != color){
@@ -31,7 +35,7 @@ public class Knight extends piece{
         }
     }
 
-    public void moveDown(){
+    private void moveDown(){
         int curr_col = col + 2;
         if(curr_col <= 7 && (row +1 <= 7)) {
             if (GameWindow.spaces[curr_col][row + 1] != color){
@@ -44,7 +48,7 @@ public class Knight extends piece{
             }
         }
     }
-    public void moveLeft(){
+    private void moveLeft(){
         int curr_row = row + 2;
         if(col + 1 <= 7 && (curr_row <= 7)) {
             if (GameWindow.spaces[col + 1][curr_row] != color){
@@ -57,7 +61,7 @@ public class Knight extends piece{
             }
         }
     }
-    public void moveRight(){
+    private void moveRight(){
         int curr_row = row - 2;
         if(col + 1 <= 7 && (curr_row >= 0)) {
             if (GameWindow.spaces[col + 1][curr_row] != color){
