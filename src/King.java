@@ -1,6 +1,7 @@
 public class King extends piece {
     public King(int color, int col, int row) {
         super(color, col, row);
+        name = GameWindow.kING;
         if (color == GameWindow.WHITE) {
             image = getImage("res/w_King_1x.png");
         } else {
@@ -13,11 +14,47 @@ public class King extends piece {
         moveUp();
         moveDown();
         moveSide();
+        if(!hasMoved){
+            castling();
+        }
+
+
+    }
+    private boolean Rcastable(){
+        return !GameWindow.underAttack(col, row) &&
+                !GameWindow.underAttack(col + 1, row) &&
+                !GameWindow.underAttack(col + 2, row) &&
+                !GameWindow.underAttack(col + 3, row);
     }
 
-    @Override
-    public void hasMoved() {
+    public void castling(){
+        //Right Castling
+        if(GameWindow.spaces[col + 1][row] == GameWindow.EMPTY && GameWindow.spaces[col + 2][row] == GameWindow.EMPTY){
+            if(Rcastable()){
+                for(piece p : GameWindow.pieces){
+                    if(p.col == (col+3) && p.row == row && !p.hasMoved && p.name == GameWindow.BISHOP){
+                        GameWindow.hints.add(new Hint(col + 1, row));
+                        GameWindow.hints.add(new Hint(col + 2, row));
+                    }
+                }
+            }
+
+        }
+        //Left Castling
+        if(GameWindow.spaces[col - 1][row] == GameWindow.EMPTY && GameWindow.spaces[col - 2][row] == GameWindow.EMPTY){
+            if(!GameWindow.underAttack(col, row)) {
+                for (piece p : GameWindow.pieces) {
+                    if (p.col == (col - 3) && p.row == row && !p.hasMoved && p.name == GameWindow.BISHOP) {
+                        GameWindow.hints.add(new Hint(col - 1, row));
+                        GameWindow.hints.add(new Hint(col - 2, row));
+                    }
+                }
+            }
+        }
     }
+
+
+
 
     private void moveSide() {
         if (col + 1 <= 7) {

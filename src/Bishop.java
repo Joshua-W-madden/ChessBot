@@ -2,6 +2,7 @@ public class Bishop extends piece{
 
     public Bishop(int color, int col, int row) {
         super(color, col, row);
+        name = GameWindow.BISHOP;
         if(color == GameWindow.WHITE){
             image = getImage("res/w_bishop_1x.png");
         }

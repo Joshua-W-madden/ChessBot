@@ -13,11 +13,12 @@ public class GameWindow extends JPanel implements Runnable{
     Thread gameThread; //threads track how many times the program is refreshing/ running or looping NEEDS THE RUNNABLE implementation tho
 
     Board board = new Board();
+    Grave grave = new Grave();
 
     public static final int EMPTY = 0;
     public static final int WHITE = 1;
     public static final int BLACK = 2;
-    public int currentColor = WHITE;
+    public static int currentColor = WHITE;
 
     //Pieces
     public static ArrayList<piece> pieces = new ArrayList<>();
@@ -29,6 +30,13 @@ public class GameWindow extends JPanel implements Runnable{
             Arrays.fill(space, EMPTY);
         }
     }
+
+    public static final int PAWN = 1;
+    public static final int ROOK = 2;
+    public static final int BISHOP = 3;
+    public static final int KNIGHT = 4;
+    public static final int QUEEN = 5;
+    public static final int kING = 6;
 
     //Hints
     public static ArrayList<Hint> hints = new ArrayList<>();
@@ -102,7 +110,7 @@ public class GameWindow extends JPanel implements Runnable{
     private void movePiece(Hint h){
         if(h.col == MouseH.x / Board.SQUARE_SIZE && h.row == MouseH.y / Board.SQUARE_SIZE){
             if(spaces[h.col][h.row] != EMPTY){
-                take(h);
+               take(h);
             }
             spaces[selectedPiece.col][selectedPiece.row] = GameWindow.EMPTY;
             spaces[h.col][h.row] = selectedPiece.color;
@@ -129,52 +137,75 @@ public class GameWindow extends JPanel implements Runnable{
             }
         }
     }
+
     private void take(Hint h){
         for(piece p : pieces){
             if(p.col == h.col && p.row == h.row){
-                // allow for eaten piece to be displayed on side bar
+                // allow for eaten piece to be displayed on sidebar
                 eaten.add(p);
                 pieces.remove(p);
+                graveYard(p);
                 return;
             }
         }
     }
 
+    private void graveYard(piece p){
+        p.die();
+
+    }
+    public static boolean underAttack(int col, int row){
+        for(piece s: pieces){
+            if(s.color != currentColor){
+                s.availMoves();
+                for(Hint h: hints){
+                    if(h.col == col && h.row == row){
+                        hints.clear();
+                        return false;
+                    }
+                }
+                hints.clear();
+            }
+        }
+        return true;
+    }
+
+
 
     public void setPieces() {
-        pieces.add(new Rook(WHITE, 0, 0));
-        pieces.add(new Knight(WHITE, 1, 0));
-        pieces.add(new Bishop(WHITE, 2, 0));
-        pieces.add(new Queen(WHITE, 3, 0));
-        pieces.add(new King(WHITE, 4, 0));
-        pieces.add(new Bishop(WHITE, 5, 0));
-        pieces.add(new Knight(WHITE, 6, 0));
-        pieces.add(new Rook(WHITE, 7, 0));
-        pieces.add(new pawn(WHITE, 0, 1));
-        pieces.add(new pawn(WHITE, 1, 1));
-        pieces.add(new pawn(WHITE, 2, 1));
-        pieces.add(new pawn(WHITE, 3, 1));
-        pieces.add(new pawn(WHITE, 4, 1));
-        pieces.add(new pawn(WHITE, 5, 1));
-        pieces.add(new pawn(WHITE, 6, 1));
-        pieces.add(new pawn(WHITE, 7, 1));
+        pieces.add(new Rook(BLACK, 0, 0));
+        pieces.add(new Knight(BLACK, 1, 0));
+        pieces.add(new Bishop(BLACK, 2, 0));
+        pieces.add(new Queen(BLACK, 3, 0));
+        pieces.add(new King(BLACK, 4, 0));
+        pieces.add(new Bishop(BLACK, 5, 0));
+        pieces.add(new Knight(BLACK, 6, 0));
+        pieces.add(new Rook(BLACK, 7, 0));
+        pieces.add(new pawn(BLACK, 0, 1));
+        pieces.add(new pawn(BLACK, 1, 1));
+        pieces.add(new pawn(BLACK, 2, 1));
+        pieces.add(new pawn(BLACK, 3, 1));
+        pieces.add(new pawn(BLACK, 4, 1));
+        pieces.add(new pawn(BLACK, 5, 1));
+        pieces.add(new pawn(BLACK, 6, 1));
+        pieces.add(new pawn(BLACK, 7, 1));
 
-        pieces.add(new Rook(BLACK, 0, 7));
-        pieces.add(new Knight(BLACK, 1, 7));
-        pieces.add(new Bishop(BLACK, 2, 7));
-        pieces.add(new Queen(BLACK, 3, 7));
-        pieces.add(new King(BLACK, 4, 7));
-        pieces.add(new Bishop(BLACK, 5, 7));
-        pieces.add(new Knight(BLACK, 6, 7));
-        pieces.add(new Rook(BLACK, 7, 7));
-        pieces.add(new pawn(BLACK, 0, 6));
-        pieces.add(new pawn(BLACK, 1, 6));
-        pieces.add(new pawn(BLACK, 2, 6));
-        pieces.add(new pawn(BLACK, 3, 6));
-        pieces.add(new pawn(BLACK, 4, 6));
-        pieces.add(new pawn(BLACK, 5, 6));
-        pieces.add(new pawn(BLACK, 6, 6));
-        pieces.add(new pawn(BLACK, 7, 6));
+        pieces.add(new Rook(WHITE, 0, 7));
+        pieces.add(new Knight(WHITE, 1, 7));
+        pieces.add(new Bishop(WHITE, 2, 7));
+        pieces.add(new Queen(WHITE, 3, 7));
+        pieces.add(new King(WHITE, 4, 7));
+        pieces.add(new Bishop(WHITE, 5, 7));
+        pieces.add(new Knight(WHITE, 6, 7));
+        pieces.add(new Rook(WHITE, 7, 7));
+        pieces.add(new pawn(WHITE, 0, 6));
+        pieces.add(new pawn(WHITE, 1, 6));
+        pieces.add(new pawn(WHITE, 2, 6));
+        pieces.add(new pawn(WHITE, 3, 6));
+        pieces.add(new pawn(WHITE, 4, 6));
+        pieces.add(new pawn(WHITE, 5, 6));
+        pieces.add(new pawn(WHITE, 6, 6));
+        pieces.add(new pawn(WHITE, 7, 6));
 
         for(piece p: pieces){
             if(p.color == WHITE){
@@ -190,6 +221,8 @@ public class GameWindow extends JPanel implements Runnable{
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
         board.draw(g2);
+        grave.draw(g2);
+
 
         for (piece p: pieces){
             p.draw(g2);
@@ -197,6 +230,11 @@ public class GameWindow extends JPanel implements Runnable{
         for (Hint h : hints){
             h.draw(g2);
         }
+        for(piece p: eaten){
+            p.draw(g2);
+        }
+
+
     }
 
 }

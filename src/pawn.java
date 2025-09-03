@@ -3,13 +3,14 @@ public class pawn extends piece{
 
     public pawn(int color, int col, int row) {
         super(color, col, row);
+        name = GameWindow.PAWN;
         if(color == GameWindow.WHITE){
             image = getImage("res/w_pawn_1x.png");
         }
         else{
             image = getImage("res/b_pawn_1x.png");
         }
-        hasMoved = false;
+
 
     }
     public void availMoves(){
@@ -23,7 +24,7 @@ public class pawn extends piece{
     }
 
     private void moveUp(){
-        if(color == GameWindow.WHITE){
+        if(color == GameWindow.BLACK){
             moveDown();
         }
         else {
@@ -50,7 +51,7 @@ public class pawn extends piece{
         }
     }
     private void eat(){
-        if(color == GameWindow.WHITE){
+        if(color == GameWindow.BLACK){
             eatDown();
         }
         else {

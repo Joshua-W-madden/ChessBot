@@ -2,6 +2,7 @@ public class Rook extends piece{
 
     public Rook(int color, int col, int row) {
         super(color, col, row);
+        name = GameWindow.ROOK;
         if(color == GameWindow.WHITE){
             image = getImage("res/w_rook_1x.png");
         }

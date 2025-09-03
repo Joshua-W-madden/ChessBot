@@ -22,6 +22,10 @@ public abstract class piece {
     public int col, row;
     public int color;
     public boolean hasMoved = false;
+    public int name;
+    public boolean alive = true;
+    private int length = Board.SQUARE_SIZE;
+    private int height = Board.SQUARE_SIZE;
 
 
     public piece(int color, int col, int row) {
@@ -48,13 +52,18 @@ public abstract class piece {
         }
         return image;
     }
+    public void die(){
+        alive = false;
+        height = height/2;
+        length = length/2;
+    }
 
     public void draw(Graphics2D g2) {
-        g2.drawImage(image, getX(col), getY(row), Board.SQUARE_SIZE, Board.SQUARE_SIZE, null);
+        g2.drawImage(image, getX(col), getY(row), length, height, null);
     }
 
     public abstract void availMoves();
-
+    //public void getName(){}
     public void hasMoved() {
         hasMoved = true;
     }
