@@ -20,7 +20,7 @@ public class King extends piece {
 
 
     }
-    private boolean Rcastable(){
+    private boolean Recastable(){
         return !GameWindow.underAttack(col, row) &&
                 !GameWindow.underAttack(col + 1, row) &&
                 !GameWindow.underAttack(col + 2, row) &&
@@ -30,7 +30,7 @@ public class King extends piece {
     public void castling(){
         //Right Castling
         if(GameWindow.spaces[col + 1][row] == GameWindow.EMPTY && GameWindow.spaces[col + 2][row] == GameWindow.EMPTY){
-            if(Rcastable()){
+            if(Recastable()){
                 for(piece p : GameWindow.pieces){
                     if(p.col == (col+3) && p.row == row && !p.hasMoved && p.name == GameWindow.BISHOP){
                         GameWindow.hints.add(new Hint(col + 1, row));

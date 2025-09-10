@@ -230,6 +230,7 @@ public class GameWindow extends JPanel implements Runnable{
         for (Hint h : hints){
             h.draw(g2);
         }
+
         for(piece p: eaten){
             p.draw(g2);
         }
