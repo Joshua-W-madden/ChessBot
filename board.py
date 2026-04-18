@@ -3,8 +3,8 @@ import constants as c
 
 
 class Board: 
+    
 
-     
     def __init__(self):
         self.position = np.array([0]*64, dtype='int')
         self.position = self.position.reshape(8,8)
