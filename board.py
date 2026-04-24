@@ -2,34 +2,34 @@ import numpy as np
 import constants as c
 
 
-class Board: 
-    
+class Board:  
 
     def __init__(self):
         self.position = np.array([0]*64, dtype='int')
         self.position = self.position.reshape(8,8)
-        self.position[0][0] = c.Rook + c.Black
-        self.position[0][1] = c.Knight + c.Black
-        self.position[0][2] = c.Bishop + c.Black
-        self.position[0][3] = c.Queen + c.Black
-        self.position[0][4] = c.King + c.Black
-        self.position[0][5] = c.Bishop + c.Black
-        self.position[0][6] = c.Knight + c.Black
-        self.position[0][7] = c.Rook + c.Black
 
-        for x in range(8):
-            self.position[1][x] = c.Pawn + c.Black
+        self.pos_translater("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR")
         
-        self.position[7][0] = c.Rook + c.White
-        self.position[7][1] = c.Knight + c.White
-        self.position[7][2] = c.Bishop + c.White
-        self.position[7][3] = c.Queen + c.White
-        self.position[7][4] = c.King + c.White
-        self.position[7][5] = c.Bishop + c.White
-        self.position[7][6] = c.Knight + c.White
-        self.position[7][7] = c.Rook + c.White
-        for x in range(8):
-            self.position[6][x] = c.Pawn + c.White
 
     def get_position(self):
         return self.position
+
+    def pos_translater(self, positions):
+        positions = positions.split('/')
+        cols = 0
+        for i in positions:
+            rows = 0
+            for char in i:
+                if char.isdigit():
+                    rows += int(char)
+                elif char.isupper():
+                    self.position[cols][rows] = c.format[char.lower()]+ c.White
+                else:
+                    self.position[cols][rows] = c.format[char]+ c.Black
+                rows +=1
+            cols +=1
+            
+
+
+
+    

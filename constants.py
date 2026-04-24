@@ -9,3 +9,5 @@ Queen = 6
 
 Black = 10
 White = 20
+
+format = {'k': King, 'p':Pawn, 'q':Queen, 'r':Rook, 'b':Bishop, 'n':Knight}

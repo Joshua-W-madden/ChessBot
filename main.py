@@ -16,20 +16,13 @@ pieces = p.pieces(boardData,screen)
 clickLoc = 0
 
 def movePiece(pos):
-    for i in pos:
-        if i <= tile*8:
-            pass
-        else:
-            print("hi")
-    """
-    if x <= tile*8 | y<= tile*8:
+    x = pos[0]
+    y = pos[1]
+    if x <= tile*8 and y <= tile*8:
+        print("Position: ", x//tile, " , ", y//tile)
+    else:    
         pass
-    else:
-        if boardData.position[(x//tile)][y//tile] == 0:
-            pass
-        else:
-            print(boardData.position)
-            """
+            
 
 while running:
     for event in pygame.event.get():
