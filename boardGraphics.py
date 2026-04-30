@@ -23,3 +23,4 @@ class board:
         scaled = pygame.transform.scale(self.grave, (tile_size * 2, tile_size * 8))
         self.screen.blit(scaled, (tile_size * 8, 0))
 
+    
