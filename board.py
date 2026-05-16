@@ -1,5 +1,5 @@
 import numpy as np
-import constants as c
+from constants import *
 
 
 class Board:  
@@ -18,20 +18,24 @@ class Board:
              & not in check or put into check. can castle
                 - king y +-2 towards rook 
                 
-    
+        """
+        """
         Queen moves like king; length till capturable piece or blocking piece
         Rook move y =1 or x=1; length till capturable piece or blocking piece
             - Castling: 
                 - left rook pos(3,7)
                 - right rook pos(5,7)
         Bishop move x = y, -x = y, x=-y, -x=-y;length till capturable piece or blocking piece
-        Khignt move x+-2 y+-1, y+-2 x+-1; only empty and capturable positions allowed
+        knignt move x+-2 y+-1, y+-2 x+-1; only empty and capturable positions allowed
         Pawn first move x+2 or x+1, all other movement x+1, captures x+1 y+-1; 
             - when reaches end of board upgrade to a different piece
-        """
-
+        """    
+    
     def get_position(self):
         return self.position
+
+    def peiceChecker(self,x, y):
+        return self.position[x][y]
 
     def pos_translater(self, positions):
         positions = positions.split('/')
@@ -42,13 +46,11 @@ class Board:
                 if char.isdigit():
                     rows += int(char)
                 elif char.isupper():
-                    self.position[cols][rows] = c.format[char.lower()]+ c.White
+                    self.position[cols][rows] = PIECE_MAP[char.lower()]+ WHITE
                 else:
-                    self.position[cols][rows] = c.format[char]+ c.Black
+                    self.position[cols][rows] = PIECE_MAP[char]+ BLACK
                 rows +=1
             cols +=1
             
-
-
 
     

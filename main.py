@@ -16,10 +16,12 @@ pieces = p.pieces(boardData,screen)
 clickLoc = 0
 
 def movePiece(pos):
-    x = pos[0]
-    y = pos[1]
-    if x <= tile*8 and y <= tile*8:
-        print("Position: ", x//tile, " , ", y//tile)
+    y = pos[0]//tile
+    x = pos[1]//tile
+    if x <= 7 and y <= 7:
+        print("Position:", x, " ,", y)
+        if boardData.peiceChecker(x,y) > 0:
+            print(boardData.peiceChecker(x,y))
     else:    
         pass
             

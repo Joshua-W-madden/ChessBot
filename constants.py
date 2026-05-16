@@ -1,13 +1,12 @@
+EMPTY = 0
+PAWN = 1
+KNIGHT = 2
+BISHOP = 3
+ROOK = 4
+QUEEN = 5
+KING = 6
 
-empty = 0
-King = 1
-Pawn = 2
-Knight = 3
-Bishop = 4
-Rook = 5
-Queen = 6
+BLACK = 8
+WHITE = 16
 
-Black = 10
-White = 20
-
-format = {'k': King, 'p':Pawn, 'q':Queen, 'r':Rook, 'b':Bishop, 'n':Knight}
+PIECE_MAP = {'k': KING, 'p':PAWN, 'q':QUEEN, 'r':ROOK, 'b':BISHOP, 'n':KNIGHT}
