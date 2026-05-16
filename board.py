@@ -46,9 +46,9 @@ class Board:
                 if char.isdigit():
                     rows += int(char)
                 elif char.isupper():
-                    self.position[cols][rows] = PIECE_MAP[char.lower()]+ WHITE
+                    self.position[cols][rows] = PIECE_MAP[char.lower()]|WHITE
                 else:
-                    self.position[cols][rows] = PIECE_MAP[char]+ BLACK
+                    self.position[cols][rows] = PIECE_MAP[char]|BLACK
                 rows +=1
             cols +=1
             
