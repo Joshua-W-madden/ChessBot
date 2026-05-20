@@ -10,7 +10,7 @@ tile = 90
 screen = pygame.display.set_mode((tile * 10, tile * 8))
 clock = pygame.time.Clock()
 running = True
-boardGraphics = bg.board(screen)
+boardGraphics = bg.boardGraphics(screen)
 boardGraphics.draw()
 boardData = b.Board()
 pieces = p.pieces(boardData,screen)
@@ -22,16 +22,29 @@ def selectPiece(pos):
     x = pos[1]//tile
     if x <= 7 and y <= 7:
         print("Position:", x, " ,", y)
-        if boardData.peiceChecker(x,y) != 0:
-            print(boardData.avail_moves(x,y))
+        if (x,y) in boardGraphics.moveList:
+            movePiece(x,y)
+        elif boardData.pieceChecker(x,y) != 0:
+            moves = boardData.avail_moves(x,y)
+            print(moves)
+            boardGraphics.moveList = moves
+            boardData.selected = [x,y]
+        else:
+            boardGraphics.moveList = []
             
-             
-    else:    
-        pass
+            
+def movePiece(x,y):
+    print("moving piece to: ", x,y)
+    boardData.updatePos(x,y)
+    boardGraphics.moveList = []
+    print(boardData.selected)
+    print(boardData.position)
+    
             
 def moved():
     global side
     side = BLACK if side == WHITE else WHITE
+
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -41,9 +54,11 @@ while running:
                 clickLoc = event.pos
                 selectPiece(clickLoc)
 
+
     
     boardGraphics.draw()
     pieces.draw()
+    boardGraphics.avail_moves_Draw()
     pygame.display.flip()
     clock.tick(60)
 

@@ -11,7 +11,7 @@ class pieces:
 
         self.images = {
         WHITE | KING: self.load_piece(r"imgs\Peices\w_king_png_128px.png"),
-        WHITE | QUEEN: self.load_piece(r"imgs\Peices\w_king_png_128px.png"),
+        WHITE | QUEEN: self.load_piece(r"imgs\Peices\w_queen_png_128px.png"),
         WHITE | ROOK: self.load_piece(r"imgs\Peices\w_rook_png_128px.png"),
         WHITE | BISHOP: self.load_piece(r"imgs\Peices\w_bishop_png_128px.png"),
         WHITE | KNIGHT: self.load_piece(r"imgs\Peices\w_knight_png_128px.png"),
